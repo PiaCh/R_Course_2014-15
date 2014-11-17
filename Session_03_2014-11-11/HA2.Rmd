@@ -1,0 +1,72 @@
+#Hausaufgabe 2
+
+
+* DataFrame einlesen
+
+```{r}
+df <- read.table(file ='../data/03-1_aeh(m).txt')
+df
+```
+
+* Sortierung und Selektion der Teilnehmer nach Geschlecht
+
+```{r}
+dfmaennlich <- df[df$V2 == 'maennlich', ]
+dfmaennlich
+
+dfweiblich <- df[df$V2 == 'weiblich', ]
+dfweiblich
+
+
+pausenlaenge_m <- as.numeric(as.character(dfmaennlich$V5))
+pausenlaenge_m
+
+pausenlaenge_w <- as.numeric(as.character(dfweiblich$V5))
+pausenlaenge_w
+
+
+mean(pausenlaenge_m)
+mean(pausenlaenge_w)
+```
+- Die durchschnittliche Pausenlänge bei Männern beträgt: `r mean (pausenlaenge_m)` ms.
+- Die durchschnittliche Pausenlänge bei Frauen beträgt: `r mean (pausenlaenge_w)` ms.
+
+* Pausenlänge Min + Max
+```{r}
+pauseMin_m <- sort(pausenlaenge_m, decreasing = F)
+pauseMin_m <- pauseMin_m[1]
+pauseMax_m <- sort(pausenlaenge_m, decreasing = T)
+pauseMax_m <- pauseMax_m[1]
+
+pauseMin_w <- sort(pausenlaenge_w, decreasing = F)
+pauseMin_w <- pauseMin_w[1]
+pauseMax_w <- sort(pausenlaenge_w, decreasing = T)
+pauseMax_w <- pauseMax_w[1]
+```
+- Die kürzeste Pause bei allen männlichen Versuchspersonen beträgt `r pauseMin_m` ms.
+- Die längste Pause bei allen männlichen Versuchspersonen beträgt `r pauseMax_m` ms.
+
+
+- Die kürzeste Pause bei allen weiblichen Versuchspersonen beträgt `r pauseMin_w` ms.
+- Die längste Pause bei allen weiblichen Versuchspersonen beträgt `r pauseMax_w` ms.
+
+* Auswahl von Dialog (von männlichen und weiblichen Teilnehmern)
+```{r}
+dfm_D <- dfmaennlich[dfmaennlich$V4 == 'dialog', ]
+dfm_D 
+dfw_D <- dfweiblich[dfweiblich$V4 == 'dialog', ]
+dfw_D
+
+```
+
+
+*Table kreieren
+
+```{r}
+table(df$V2)
+table(dfm_D$V3)
+table(dfw_D$V3)
+
+```
+- Machen Frauen im Dialog eher Schweigepausen?
+- Anhand der vorliegenden Daten kann diese Hypothese angenommen werden.
